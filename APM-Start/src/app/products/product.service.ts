@@ -13,16 +13,14 @@ import { SupplierService } from '../suppliers/supplier.service';
 export class ProductService {
   private productsUrl = 'api/products';
 
+  public products$: Observable<Product[]> = this.http.get<Product[]>(this.productsUrl)
+  .pipe(
+    tap(data => console.log('Products: ', JSON.stringify(data))),
+    catchError(this.handleError)
+  );
+
   constructor(private http: HttpClient,
     private supplierService: SupplierService) { }
-
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl)
-      .pipe(
-        tap(data => console.log('Products: ', JSON.stringify(data))),
-        catchError(this.handleError)
-      );
-  }
 
   private fakeProduct() {
     return {

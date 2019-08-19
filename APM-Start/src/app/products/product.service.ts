@@ -5,7 +5,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Product } from './product';
-import { Supplier } from '../suppliers/supplier';
 import { SupplierService } from '../suppliers/supplier.service';
 
 @Injectable({
@@ -13,7 +12,6 @@ import { SupplierService } from '../suppliers/supplier.service';
 })
 export class ProductService {
   private productsUrl = 'api/products';
-  private suppliersUrl = this.supplierService.suppliersUrl;
 
   constructor(private http: HttpClient,
               private supplierService: SupplierService) { }

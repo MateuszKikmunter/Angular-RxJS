@@ -24,7 +24,7 @@
 
     <div class="table-responsive">
       <table class="table mb-0"
-             *ngIf="products">
+             *ngIf="(products$ | async) as products; else loading">
         <thead>
           <tr>
             <th>Product</th>
@@ -44,12 +44,20 @@
           </tr>
         </tbody>
       </table>
+
+      <ng-template #loading>
+        <div class="col-md-12 text-center">
+          <h3>
+            Loading products, please wait...
+          </h3>
+        </div>
+      </ng-template>
     </div>
 
   </div>
 </div>
 
 <div class="alert alert-danger"
-     *ngIf="errorMessage">
+     *ngIf="errorMessage$">
   {{ errorMessage }}
 </div>

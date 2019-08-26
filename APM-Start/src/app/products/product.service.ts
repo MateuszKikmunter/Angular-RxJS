@@ -71,7 +71,7 @@ export class ProductService {
   }
 
   public selectedProductChanged(selectedProductId: number): void {
-    this.productSelectedSubject.next(selectedProductId);
-  }
+    this.productSelectedSubject.next(selectedProductId)
+    }
 
 }

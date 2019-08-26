@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, EMPTY } from 'rxjs';
 
 import { Product } from '../product';
 import { ProductService } from '../product.service';
@@ -13,13 +13,16 @@ import { ProductService } from '../product.service';
 })
 export class ProductDetailComponent {
   public pageTitle: string = 'Product Detail';
-  public errorMessage: string = '';
+
   public product$: Observable<Product> = this.productService.selectedProduct$.pipe(
     catchError(err => {
-      this.errorMessage = err;
-      return of(null);
+      this.errorMessageSubject.next(err);
+      return EMPTY;
     })
   );
+
+  private errorMessageSubject: Subject<string> = new Subject<string>();
+  public errorMessage$: Observable<string> = this.errorMessageSubject.asObservable();
 
   constructor(private productService: ProductService) { }
 
